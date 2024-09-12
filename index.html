@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 7 - Parte 1</title>
+    <style>
+        p {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <p>Este es el primer parrafo</p>
+    <p>Este es el segundo parrafo</p>
+    <p>Este es el tercer parrafo</p>
+    <button onclick="cambiarAzul()">Cambiar color a azul</button>
+    <h2>Ejercicio 2: Formulario con alerta</h2>
+    <form>
+        <label>Ingresa un texto:</label>
+        <input type="text" id="texto">
+        <button onclick="mostrarAlerta()">Mostrar Alerta</button>
+    </form>
+
+    <ul id="lista">
+      <li>Elemento A</li>
+      <li>Elemento B</li>
+      <li>Elemento C</li>
+      <li>Elemento D</li>
+      <li>Elemento E</li>
+      <li>Elemento F</li>
+      <li>Elemento G</li>
+      <li>Elemento H</li>
+      <li>Elemento I</li>
+  </ul>
+
+  <h2>Ejercicio 2: Campo de texto y botones</h2>
+  <input type="text" id="miInput" placeholder="Ingrese texto">
+  <button id="deshabilitar">Deshabilitar Campo</button>
+  <button id="habilitar">Habilitar Campo</button>
+  <p>
+  <form id="formulario">
+    <label>Correo Electronico: </label>
+    <input type="email" id="correo" placeholder="example@gmail.com">
+    <button id="guardar">Guardar Correo</button>
+  </form>
+  </p>
+  <div id="correo-guardado"></div>
+
+  <script>
+    function cambiarAzul() {
+        var parrafos = document.getElementsByTagName("p");
+        for (var i = 0; i < parrafos.length; i++) {
+            parrafos[i].style.color = "blue";
+        }
+    }
+    function mostrarAlerta() {
+        var textoIngresado = document.getElementById("texto").value;
+        alert("Has ingresado: \"" + textoIngresado + "\"");
+    }
+    var lista = document.getElementById("lista");
+    var elementos = lista.getElementsByTagName("li");
+    for (var i = 0; i < elementos.length; i++) {
+      elementos[i].addEventListener("click", function() {
+        console.log(this.textContent);
+      }
+    );
+  }
+    var input = document.getElementById("miInput");
+    var deshabilitarBtn = document.getElementById("deshabilitar");
+    var habilitarBtn = document.getElementById("habilitar");
+
+    deshabilitarBtn.addEventListener("click", function() {
+        input.disabled = true;
+    });
+    habilitarBtn.addEventListener("click", function() {
+        input.disabled = false;
+    });
+
+    const formulario = document.getElementById('formulario');
+    const correoInput = document.getElementById('correo');
+    const correoGuardadoDiv = document.getElementById('correo-guardado');
+
+    formulario.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const correo = correoInput.value;
+      localStorage.setItem('correo', correo);
+      mostrarCorreoGuardado();
+    });
+
+    function mostrarCorreoGuardado() {
+      const correoGuardado = localStorage.getItem('correo');
+      if (correoGuardado) {
+        correoGuardadoDiv.innerHTML = `
+          <p>Correo guardado: ${correoGuardado}</p>
+          <button id="eliminar-correo">Eliminar Correo Guardado</button>
+        `;
+        const eliminarCorreoBoton = document.getElementById('eliminar-correo');
+        eliminarCorreoBoton.addEventListener('click', () => {
+          localStorage.removeItem('correo');
+          correoGuardadoDiv.innerHTML = '';
+        });
+      }
+    }
+    mostrarCorreoGuardado();
+      </script>
+</body>
+</html>
